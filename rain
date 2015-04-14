@@ -1,0 +1,60 @@
+
+# coding: utf-8
+
+# In[1]:
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+get_ipython().magic(u'matplotlib inline')
+
+
+# In[2]:
+
+import zipfile
+zFile = zipfile.ZipFile('train_2013.csv.zip', mode='r')
+zFile.extract(zFile.namelist()[0])
+
+
+# In[3]:
+
+data = pd.read_csv('train_2013.csv')
+
+
+# In[13]:
+
+data.head(3)
+
+
+# In[96]:
+
+data_sample = data.head(100)
+data_sample = data_sample.ix[0:, 1:19]
+print data_sample.dtypes
+
+
+# In[97]:
+
+def removeNA(s):
+    try:
+        if s is not np.nan:
+            l = s.split(' ')
+            l = [x for x in l if x not in ['-99900.0', '-99901.0', '-99903.0', '999.0', 'nan']]
+            #rint l
+            l = map(float, l)
+            return np.mean(l)
+    except Exception as e:
+        print s
+        print str(e)
+
+
+data_sample1= data_sample.applymap(removeNA)
+data_sample1
+
+
+# In[95]:
+
+s = data_sample1.ix[0:, ['LogWaterVolume']]
+s
+
+
