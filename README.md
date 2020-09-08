@@ -1,4 +1,3 @@
 Data-Sciene
 ===========
-
-Data Science specialization
+Machine Learning Problems and Case Studies
